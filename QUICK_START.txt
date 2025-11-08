@@ -1,0 +1,48 @@
+============================================
+AI CANDIDATE DASHBOARD - QUICK START GUIDE
+============================================
+
+OPTION 1: If you have Node.js installed
+----------------------------------------
+1. Download this entire folder to your computer
+2. Open Terminal/Command Prompt
+3. Navigate to the folder: cd path/to/AI-dashboard
+4. Run: npm install
+5. Run: npm run dev
+6. Open browser to: http://localhost:5173
+
+OPTION 2: If you don't have Node.js
+------------------------------------
+1. Go to: https://nodejs.org
+2. Download and install Node.js (LTS version)
+3. Follow Option 1 steps above
+
+OPTION 3: Download from GitHub
+-------------------------------
+1. Go to: https://github.com/chawalkesaath-sketch/AI-dashboard
+2. Click the green "Code" button
+3. Click "Download ZIP"
+4. Extract the ZIP file
+5. Follow Option 1 steps (npm install, npm run dev)
+
+============================================
+WHAT YOU'LL SEE
+============================================
+- Black background with electric blue colors
+- "Alex Johnson" profile header
+- AI chatbot interface
+- Floating skill badges around a photo
+- Interactive charts and animations
+- All 15 dashboard sections
+
+============================================
+NEED HELP?
+============================================
+If you see errors about "npm not found":
+- You need to install Node.js first (nodejs.org)
+- Restart your terminal after installing
+
+If port 5173 is busy:
+- The app will use a different port (check the terminal output)
+
+============================================
