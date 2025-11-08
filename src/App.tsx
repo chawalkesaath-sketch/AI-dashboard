@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Linkedin,
   Github,
@@ -21,6 +21,10 @@ import {
   Download,
   Search,
   Star,
+  LogIn,
+  UserPlus,
+  Eye,
+  EyeOff,
 } from 'lucide-react';
 import {
   Radar,
@@ -189,6 +193,18 @@ function App() {
     { role: 'ai', text: `Hi! I'm ${candidateData.name}'s AI Twin. Ask me anything about their experience, skills, or career goals!` },
   ]);
 
+  // Authentication state
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(true);
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
+  const [showPassword, setShowPassword] = useState(false);
+  const [authForm, setAuthForm] = useState({
+    email: '',
+    password: '',
+    name: '',
+  });
+  const [authError, setAuthError] = useState('');
+
   const handleChatSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!chatInput.trim()) return;
@@ -209,8 +225,188 @@ function App() {
     setChatInput('');
   };
 
+  const handleAuthSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthError('');
+
+    // Basic validation
+    if (!authForm.email || !authForm.password) {
+      setAuthError('Please fill in all fields');
+      return;
+    }
+
+    if (authMode === 'register' && !authForm.name) {
+      setAuthError('Please enter your name');
+      return;
+    }
+
+    // Simple email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(authForm.email)) {
+      setAuthError('Please enter a valid email');
+      return;
+    }
+
+    // Password length validation
+    if (authForm.password.length < 6) {
+      setAuthError('Password must be at least 6 characters');
+      return;
+    }
+
+    // Demo authentication - in real app, this would call an API
+    if (authMode === 'login') {
+      // For demo: accept any email/password combo, or use demo credentials
+      if (authForm.email === 'demo@example.com' && authForm.password === 'demo123') {
+        setIsAuthenticated(true);
+        setShowAuthModal(false);
+        setAuthError('');
+      } else {
+        // For demo purposes, allow any valid email/password
+        setIsAuthenticated(true);
+        setShowAuthModal(false);
+        setAuthError('');
+      }
+    } else {
+      // Register mode - just accept and login
+      setIsAuthenticated(true);
+      setShowAuthModal(false);
+      setAuthError('');
+    }
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setShowAuthModal(true);
+    setAuthForm({ email: '', password: '', name: '' });
+  };
+
   return (
     <div className="app">
+      {/* Authentication Modal */}
+      <AnimatePresence>
+        {showAuthModal && !isAuthenticated && (
+          <motion.div
+            className="auth-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="auth-modal card"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+            >
+              <div className="auth-header">
+                <h2>{authMode === 'login' ? 'Welcome Back' : 'Create Account'}</h2>
+                <p className="auth-subtitle">
+                  {authMode === 'login'
+                    ? 'Login to view the AI-powered candidate dashboard'
+                    : 'Register to access the futuristic dashboard'}
+                </p>
+              </div>
+
+              <form onSubmit={handleAuthSubmit} className="auth-form">
+                {authMode === 'register' && (
+                  <div className="form-group">
+                    <label htmlFor="name">Full Name</label>
+                    <input
+                      type="text"
+                      id="name"
+                      value={authForm.name}
+                      onChange={(e) =>
+                        setAuthForm({ ...authForm, name: e.target.value })
+                      }
+                      placeholder="Enter your full name"
+                      className="auth-input"
+                    />
+                  </div>
+                )}
+
+                <div className="form-group">
+                  <label htmlFor="email">Email Address</label>
+                  <input
+                    type="email"
+                    id="email"
+                    value={authForm.email}
+                    onChange={(e) =>
+                      setAuthForm({ ...authForm, email: e.target.value })
+                    }
+                    placeholder="Enter your email"
+                    className="auth-input"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="password">Password</label>
+                  <div className="password-input-wrapper">
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      id="password"
+                      value={authForm.password}
+                      onChange={(e) =>
+                        setAuthForm({ ...authForm, password: e.target.value })
+                      }
+                      placeholder="Enter your password"
+                      className="auth-input"
+                    />
+                    <button
+                      type="button"
+                      className="password-toggle"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                    </button>
+                  </div>
+                </div>
+
+                {authError && <div className="auth-error">{authError}</div>}
+
+                <button type="submit" className="btn-primary btn-full auth-submit">
+                  {authMode === 'login' ? (
+                    <>
+                      <LogIn size={20} />
+                      Login
+                    </>
+                  ) : (
+                    <>
+                      <UserPlus size={20} />
+                      Register
+                    </>
+                  )}
+                </button>
+              </form>
+
+              <div className="auth-footer">
+                <p>
+                  {authMode === 'login'
+                    ? "Don't have an account? "
+                    : 'Already have an account? '}
+                  <button
+                    className="auth-switch"
+                    onClick={() => {
+                      setAuthMode(authMode === 'login' ? 'register' : 'login');
+                      setAuthError('');
+                      setAuthForm({ email: '', password: '', name: '' });
+                    }}
+                  >
+                    {authMode === 'login' ? 'Register' : 'Login'}
+                  </button>
+                </p>
+              </div>
+
+              <div className="auth-demo-credentials">
+                <p>
+                  <strong>Demo Credentials:</strong>
+                </p>
+                <p>Email: demo@example.com</p>
+                <p>Password: demo123</p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Header */}
       <motion.header
         className="header"
@@ -251,6 +447,12 @@ function App() {
                   <Phone size={20} />
                 </a>
               </div>
+              {isAuthenticated && (
+                <button onClick={handleLogout} className="logout-btn">
+                  <LogIn size={18} />
+                  Logout
+                </button>
+              )}
             </div>
           </div>
         </div>
