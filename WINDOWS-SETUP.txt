@@ -1,0 +1,73 @@
+========================================================
+AI CANDIDATE DASHBOARD - WINDOWS SETUP (SUPER EASY!)
+========================================================
+
+STEP 1: Install Node.js (One-Time Setup - 2 minutes)
+-----------------------------------------------------
+1. Go to: https://nodejs.org
+2. Click the BIG GREEN button that says "LTS" 
+3. Download will start automatically
+4. Double-click the downloaded file
+5. Click "Next" through everything (keep all defaults)
+6. Click "Install"
+7. Click "Finish"
+
+STEP 2: Download the Dashboard
+-------------------------------
+1. Go to: https://github.com/chawalkesaath-sketch/AI-dashboard
+2. Click the GREEN "Code" button
+3. Click "Download ZIP"
+4. Save it to your Desktop or Downloads folder
+5. Right-click the ZIP file → "Extract All"
+6. Choose a location (like Desktop)
+
+STEP 3: Run the Dashboard
+--------------------------
+1. Open the extracted "AI-dashboard" folder
+2. Find the file: START-DASHBOARD.bat
+3. DOUBLE-CLICK on START-DASHBOARD.bat
+4. A black window will open - wait a moment
+5. Your browser will open automatically!
+   (Or open browser to: http://localhost:5173)
+
+========================================================
+TROUBLESHOOTING
+========================================================
+
+Problem: "Node.js is not installed" error
+Solution: Complete STEP 1 above, then try again
+
+Problem: Black window closes immediately
+Solution: Make sure you extracted the ZIP file first
+
+Problem: Nothing happens when I double-click
+Solution: Right-click START-DASHBOARD.bat → "Run as administrator"
+
+Problem: Browser shows error
+Solution: Close the black window, wait 10 seconds, try again
+
+========================================================
+WHAT YOU'LL SEE
+========================================================
+✓ Black background with electric blue colors
+✓ "ALEX JOHNSON" in glowing blue letters
+✓ Green "VERIFIED" badge
+✓ AI Chatbot you can type into
+✓ Photo with 8 floating skill badges
+✓ Cool animations when you scroll
+✓ Charts and graphs
+✓ All 15 dashboard sections
+
+========================================================
+NEED MORE HELP?
+========================================================
+The dashboard is running when you see:
+  "VITE ready in XXX ms"
+  "Local: http://localhost:5173/"
+
+To STOP the dashboard:
+  - Click the black window
+  - Press Ctrl+C
+  - Type 'Y' and press Enter
+
+========================================================
