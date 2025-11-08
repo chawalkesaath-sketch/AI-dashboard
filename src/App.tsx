@@ -29,8 +29,6 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis,
   ResponsiveContainer,
-  LineChart,
-  Line,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -589,7 +587,7 @@ function App() {
             <div className="career-path-section">
               <h3>Potential Career Paths</h3>
               <div className="career-paths">
-                {careerPath.map((path, idx) => (
+                {careerPath.map((path) => (
                   <div key={path.role} className="career-path-item card">
                     <span className="path-role">{path.role}</span>
                     <div className="path-probability">
